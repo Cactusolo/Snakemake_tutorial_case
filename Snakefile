@@ -4,6 +4,14 @@ run_in_slurm_env = True
 if run_in_slurm_env == True:
     shell.prefix("module load hisat2/2.2.0; module load stringtie/2.0.4; module load samtools/1.3.1; module load stringtie/2.0.4; module load gffread/0.9.8c")
 
+rule all:
+    input:
+        #mapping
+        expand("mapping_out/{samples}.sam", samples=config["mapping"]["inputs"]),
+        #sorting_sam
+        expand("mapping_out/{samples}.bam", samples=config["mapping"]["inputs"]),
+        #assembly
+        expand("gtfs/{samples}.gtf", samples=config["mapping"]["inputs"])
 
 rule mapping:
     input:
