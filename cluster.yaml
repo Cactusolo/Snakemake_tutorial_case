@@ -1,0 +1,17 @@
+__default__:
+    cluster: slurm
+    ntasks: 1
+    n_of_threads: 1
+    mem: 4gb
+    qos: kirst
+    output: logs/snakemake_%j.out
+    error: logs/snakemake_%j.err
+    time: 02:00:00
+    email_user: wendellpereira@ufl.edu
+    email_type: ALL
+    
+mapping:
+    n_of_threads: 6
+    output: logs/mapping_%j.out
+    error: logs/mapping_%j.err
+    mem: 10gb
