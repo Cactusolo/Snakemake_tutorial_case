@@ -20,3 +20,12 @@ mapping:
         ]
     inputs_sufix: ["1.fastq.gz", "2.fastq.gz"]
     inputs_directory: "chrX_data/samples"
+    
+sorting_sam:
+    params:
+        threads: 4
+
+assembly:
+    params:
+        threads: 8
+        annotation: "chrX_data/genes/chrX.gtf"
