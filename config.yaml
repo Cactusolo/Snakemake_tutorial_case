@@ -1,0 +1,22 @@
+mapping:
+    params:
+        genome_index: chrX_data/indexes/chrX_tran
+        threads: 6
+        n_of_reads: 200000
+    inputs:
+        [
+    "ERR188044_chrX",
+    "ERR188104_chrX",
+    "ERR188234_chrX",
+    "ERR188245_chrX",
+    "ERR188257_chrX",
+    "ERR188273_chrX",
+    "ERR188337_chrX",
+    "ERR188383_chrX",
+    "ERR188401_chrX",
+    "ERR188428_chrX",
+    "ERR188454_chrX",
+    "ERR204916_chrX",
+        ]
+    inputs_sufix: ["1.fastq.gz", "2.fastq.gz"]
+    inputs_directory: "chrX_data/samples"

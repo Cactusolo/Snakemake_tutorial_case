@@ -1,3 +1,4 @@
+configfile: "config.yaml"
 rule mapping_opt1:
     input:
         "chrX_data/samples/ERR188044_chrX_1.fastq.gz",
@@ -109,3 +110,29 @@ rule mapping_opt2:
         "hisat2 -p {params.threads} --upto {params.n_of_reads} --dta -x {params.genome_index} -1 {input[16]} -2 {input[19]} -S {output[9]};"
         "hisat2 -p {params.threads} --upto {params.n_of_reads} --dta -x {params.genome_index} -1 {input[17]} -2 {input[21]} -S {output[10]};"
         "hisat2 -p {params.threads} --upto {params.n_of_reads} --dta -x {params.genome_index} -1 {input[18]} -2 {input[23]} -S {output[11]};"
+
+
+rule mapping:
+    input:
+        expand("{dir}/{samples}_{inputs_sufix}",
+        dir=config["mapping"]["inputs_directory"],
+        samples=config["mapping"]["inputs"],
+        inputs_sufix=config["mapping"]["inputs_sufix"]),
+    params:
+        genome_index=config["mapping"]["params"]["genome_index"],
+        threads=config["mapping"]["params"]["threads"],
+        n_of_reads=config["mapping"]["params"]["n_of_reads"],
+        samples=config["mapping"]["inputs"],
+        inputs_sufix=config["mapping"]["inputs_sufix"],
+        dir=config["mapping"]["inputs_directory"],
+    output:
+        expand("mapping_out/{samples}.sam", samples=config["mapping"]["inputs"])
+    shell:
+        """
+        for file in {params.samples};
+        do
+
+            hisat2 -p {params.threads} --upto {params.n_of_reads} --dta -x {params.genome_index} -1 {params.dir}/${{file}}_{params.inputs_sufix[0]} -2 {params.dir}/${{file}}_{params.inputs_sufix[1]} -S mapping_out/${{file}}.sam
+
+        done
+        """
